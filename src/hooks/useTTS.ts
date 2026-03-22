@@ -6,12 +6,14 @@ export function useTTS() {
 
   const getVoice = (): SpeechSynthesisVoice | null => {
     const voices = speechSynthesis.getVoices();
+    // Звонкие детские/женские голоса — сначала самые высокие по тембру
     const priority = [
-      (v: SpeechSynthesisVoice) => v.lang.startsWith("ru") && v.name.toLowerCase().includes("female"),
-      (v: SpeechSynthesisVoice) => v.lang.startsWith("ru") && v.name.toLowerCase().includes("милена"),
+      (v: SpeechSynthesisVoice) => v.lang.startsWith("ru") && v.name.toLowerCase().includes("светлана"),
       (v: SpeechSynthesisVoice) => v.lang.startsWith("ru") && v.name.toLowerCase().includes("алёна"),
-      (v: SpeechSynthesisVoice) => v.lang.startsWith("ru") && v.name.toLowerCase().includes("victoria"),
+      (v: SpeechSynthesisVoice) => v.lang.startsWith("ru") && v.name.toLowerCase().includes("милена"),
       (v: SpeechSynthesisVoice) => v.lang.startsWith("ru") && v.name.toLowerCase().includes("katya"),
+      (v: SpeechSynthesisVoice) => v.lang.startsWith("ru") && v.name.toLowerCase().includes("victoria"),
+      (v: SpeechSynthesisVoice) => v.lang.startsWith("ru") && v.name.toLowerCase().includes("female"),
       (v: SpeechSynthesisVoice) => v.lang.startsWith("ru") && !v.name.toLowerCase().includes("male"),
       (v: SpeechSynthesisVoice) => v.lang.startsWith("ru"),
     ];
@@ -22,12 +24,12 @@ export function useTTS() {
     return null;
   };
 
-  const makeUtter = (text: string, rate: number, pitch: number): SpeechSynthesisUtterance => {
+  const makeUtter = (text: string, rate: number, pitch: number, volume = 1): SpeechSynthesisUtterance => {
     const utter = new SpeechSynthesisUtterance(text);
     utter.lang = "ru-RU";
     utter.rate = rate;
     utter.pitch = pitch;
-    utter.volume = 1;
+    utter.volume = volume;
     const voice = getVoice();
     if (voice) utter.voice = voice;
     return utter;
@@ -37,7 +39,7 @@ export function useTTS() {
   const speak = useCallback((text: string) => {
     if (!("speechSynthesis" in window)) return;
     speechSynthesis.cancel();
-    const utter = makeUtter(text, 0.82, 1.25);
+    const utter = makeUtter(text, 0.85, 1.5);
     utter.onstart = () => setSpeaking(text);
     utter.onend = () => setSpeaking(null);
     utter.onerror = () => setSpeaking(null);
@@ -52,10 +54,9 @@ export function useTTS() {
     speechSynthesis.cancel();
 
     // Первый utterance: слово "Буква"
-    const u1 = makeUtter("Буква", 0.8, 1.2);
-    // Второй utterance: сама буква — очень медленно, высокий тон, громче
-    const u2 = makeUtter(letter, 0.35, 1.6);
-    u2.volume = 1;
+    const u1 = makeUtter("Буква", 0.8, 1.5);
+    // Второй utterance: сама буква — очень медленно, звонко, громко
+    const u2 = makeUtter(letter, 0.35, 2.0, 1);
 
     const key = `letter_${letter}`;
 
