@@ -29,7 +29,7 @@ const DEFAULT_USER: User = {
   email: "masha@example.com",
   stars: 42,
   level: 1,
-  completedLessons: [1, 2, 3],
+  completedLessons: [],
   badges: ["first_letter", "triple_combo"],
   streak: 5,
   isPremium: false,
@@ -38,7 +38,7 @@ const DEFAULT_USER: User = {
 export default function App() {
   const [screen, setScreen] = useState<Screen>("auth");
   const [user, setUser] = useState<User>(DEFAULT_USER);
-  const [activeLessonId, setActiveLessonId] = useState<number>(4);
+  const [activeLessonId, setActiveLessonId] = useState<number>(101);
   const [lastResult, setLastResult] = useState<LessonResult | null>(null);
 
   const navigate = (s: Screen) => setScreen(s);

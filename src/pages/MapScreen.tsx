@@ -222,37 +222,24 @@ export default function MapScreen({ user, onStartLesson, onProfile }: Props) {
                 </div>
               ) : (
                 <div className="grid grid-cols-5 gap-2">
-                  {level.lessons.map((lesson, i) => {
+                  {level.lessons.map((lesson) => {
                     const isDone = user.completedLessons.includes(lesson.id);
-                    const isNext = !isDone && (i === 0 || user.completedLessons.includes(level.lessons[i - 1]?.id));
-                    const isDisabled = !isDone && !isNext;
 
                     return (
                       <button
                         key={lesson.id}
-                        onClick={() => !isDisabled && onStartLesson(lesson.id)}
-                        disabled={isDisabled}
+                        onClick={() => onStartLesson(lesson.id)}
                         className="btn-bounce aspect-square rounded-2xl flex flex-col items-center justify-center text-xl relative transition-all"
                         style={{
-                          background: isDone
-                            ? level.gradient
-                            : isNext
-                            ? "white"
-                            : "hsl(var(--muted))",
+                          background: isDone ? level.gradient : "white",
                           boxShadow: isDone
                             ? `0 4px 0 ${level.shadow}`
-                            : isNext
-                            ? `0 4px 0 hsl(var(--border)), 0 0 0 2px hsl(${level.color})`
-                            : "0 2px 0 hsl(var(--border))",
-                          border: isNext ? `2px solid hsl(${level.color})` : "none",
-                          opacity: isDisabled ? 0.4 : 1,
+                            : `0 4px 0 hsl(var(--border)), 0 0 0 2px hsl(${level.color})`,
+                          border: isDone ? "none" : `2px solid hsl(${level.color})`,
                         }}>
                         <span className="text-lg leading-none">{lesson.emoji}</span>
                         {isDone && (
                           <span className="text-xs font-black text-white">✓</span>
-                        )}
-                        {isNext && (
-                          <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-yellow-400 pulse-ring" />
                         )}
                       </button>
                     );
