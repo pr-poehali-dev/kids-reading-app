@@ -17,16 +17,39 @@ const LEVELS = [
     shadow: "hsl(258 80% 45%)",
     gradient: "linear-gradient(135deg, hsl(258 90% 66%), hsl(258 80% 55%))",
     lessons: [
-      { id: 1, title: "Буква А", emoji: "🍎", done: true },
-      { id: 2, title: "Буква Б", emoji: "🐝", done: true },
-      { id: 3, title: "Буква В", emoji: "🐺", done: true },
-      { id: 4, title: "Угадай букву", emoji: "🎯", done: false },
-      { id: 5, title: "Буква Г", emoji: "🦆", done: false },
-      { id: 6, title: "Буква Д", emoji: "🌳", done: false },
-      { id: 7, title: "Буква Е", emoji: "🦔", done: false },
-      { id: 8, title: "Буква Ж", emoji: "🐞", done: false },
-      { id: 9, title: "Все вместе!", emoji: "🌈", done: false },
-      { id: 10, title: "Финальный тест", emoji: "🏆", done: false },
+      { id: 101, title: "Буква А", emoji: "🍎" },
+      { id: 102, title: "Буква Б", emoji: "🐝" },
+      { id: 103, title: "Буква В", emoji: "🐺" },
+      { id: 104, title: "Буква Г", emoji: "🦆" },
+      { id: 105, title: "Буква Д", emoji: "🌳" },
+      { id: 106, title: "Буква Е", emoji: "🦔" },
+      { id: 107, title: "Буква Ё", emoji: "🌲" },
+      { id: 108, title: "Буква Ж", emoji: "🐞" },
+      { id: 109, title: "Буква З", emoji: "🦓" },
+      { id: 110, title: "Буква И", emoji: "🦌" },
+      { id: 111, title: "Буква Й", emoji: "🎯" },
+      { id: 112, title: "Буква К", emoji: "🐱" },
+      { id: 113, title: "Буква Л", emoji: "🦁" },
+      { id: 114, title: "Буква М", emoji: "🐭" },
+      { id: 115, title: "Буква Н", emoji: "🌙" },
+      { id: 116, title: "Буква О", emoji: "🦊" },
+      { id: 117, title: "Буква П", emoji: "🐧" },
+      { id: 118, title: "Буква Р", emoji: "🌹" },
+      { id: 119, title: "Буква С", emoji: "🐘" },
+      { id: 120, title: "Буква Т", emoji: "🐯" },
+      { id: 121, title: "Буква У", emoji: "🦆" },
+      { id: 122, title: "Буква Ф", emoji: "🎩" },
+      { id: 123, title: "Буква Х", emoji: "🦔" },
+      { id: 124, title: "Буква Ц", emoji: "🌸" },
+      { id: 125, title: "Буква Ч", emoji: "☕" },
+      { id: 126, title: "Буква Ш", emoji: "🎱" },
+      { id: 127, title: "Буква Щ", emoji: "🛡️" },
+      { id: 128, title: "Буква Ъ", emoji: "🔑" },
+      { id: 129, title: "Буква Ы", emoji: "🧀" },
+      { id: 130, title: "Буква Ь", emoji: "🍂" },
+      { id: 131, title: "Буква Э", emoji: "⚡" },
+      { id: 132, title: "Буква Ю", emoji: "🌍" },
+      { id: 133, title: "Буква Я", emoji: "🍓" },
     ],
   },
   {
@@ -76,7 +99,8 @@ const LEVELS = [
 ];
 
 export default function MapScreen({ user, onStartLesson, onProfile }: Props) {
-  const progress = (user.completedLessons.length / 30) * 100;
+  const totalLessons = LEVELS.reduce((sum, l) => sum + l.lessons.length, 0);
+  const progress = (user.completedLessons.length / totalLessons) * 100;
 
   return (
     <div className="min-h-dvh flex flex-col pb-6">
@@ -127,7 +151,7 @@ export default function MapScreen({ user, onStartLesson, onProfile }: Props) {
           <div className="flex justify-between items-center mb-2">
             <span className="font-bold text-sm text-foreground">Общий прогресс</span>
             <span className="font-black text-sm" style={{ color: "hsl(var(--game-purple))" }}>
-              {user.completedLessons.length}/30 уроков
+              {user.completedLessons.length}/{totalLessons} уроков
             </span>
           </div>
           <div className="h-3 bg-muted rounded-full overflow-hidden">

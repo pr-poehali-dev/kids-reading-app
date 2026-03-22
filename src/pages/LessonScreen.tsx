@@ -19,7 +19,7 @@ const LETTER_DATA: Record<number, {
   bg: string;
   shadow: string;
 }> = {
-  4: {
+  101: {
     letter: "А",
     emoji: "🍎",
     words: [
@@ -31,7 +31,31 @@ const LETTER_DATA: Record<number, {
     bg: "linear-gradient(135deg, hsl(0 85% 60%), hsl(350 85% 55%))",
     shadow: "hsl(0 85% 45%)",
   },
-  5: {
+  102: {
+    letter: "Б",
+    emoji: "🐝",
+    words: [
+      { word: "Банан",    photo: "https://images.unsplash.com/photo-1528825871115-3581a5387919?w=120&h=120&fit=crop&auto=format" },
+      { word: "Бабочка",  photo: "https://images.unsplash.com/photo-1444927714506-8492d94b4e3d?w=120&h=120&fit=crop&auto=format" },
+      { word: "Бегемот",  photo: "https://images.unsplash.com/photo-1549480017-d76466a4b7e8?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(45 95% 55%)",
+    bg: "linear-gradient(135deg, hsl(45 95% 55%), hsl(35 95% 50%))",
+    shadow: "hsl(45 95% 40%)",
+  },
+  103: {
+    letter: "В",
+    emoji: "🐺",
+    words: [
+      { word: "Волк",   photo: "https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=120&h=120&fit=crop&auto=format" },
+      { word: "Виноград", photo: "https://images.unsplash.com/photo-1537640538966-79f369143f8f?w=120&h=120&fit=crop&auto=format" },
+      { word: "Ворона",  photo: "https://images.unsplash.com/photo-1522926193341-e9ffd686c60f?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(220 70% 55%)",
+    bg: "linear-gradient(135deg, hsl(220 70% 55%), hsl(210 70% 50%))",
+    shadow: "hsl(220 70% 40%)",
+  },
+  104: {
     letter: "Г",
     emoji: "🦆",
     words: [
@@ -43,7 +67,7 @@ const LETTER_DATA: Record<number, {
     bg: "linear-gradient(135deg, hsl(120 60% 45%), hsl(100 60% 40%))",
     shadow: "hsl(120 60% 32%)",
   },
-  6: {
+  105: {
     letter: "Д",
     emoji: "🌳",
     words: [
@@ -55,9 +79,345 @@ const LETTER_DATA: Record<number, {
     bg: "linear-gradient(135deg, hsl(25 90% 55%), hsl(15 90% 50%))",
     shadow: "hsl(25 90% 40%)",
   },
+  106: {
+    letter: "Е",
+    emoji: "🦔",
+    words: [
+      { word: "Ёж",     photo: "https://images.unsplash.com/photo-1555169062-013468b47731?w=120&h=120&fit=crop&auto=format" },
+      { word: "Ель",    photo: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=120&h=120&fit=crop&auto=format" },
+      { word: "Енот",   photo: "https://images.unsplash.com/photo-1497752531616-c3afd9760a11?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(150 60% 42%)",
+    bg: "linear-gradient(135deg, hsl(150 60% 42%), hsl(140 60% 37%))",
+    shadow: "hsl(150 60% 30%)",
+  },
+  107: {
+    letter: "Ё",
+    emoji: "🌲",
+    words: [
+      { word: "Ёж",     photo: "https://images.unsplash.com/photo-1555169062-013468b47731?w=120&h=120&fit=crop&auto=format" },
+      { word: "Ёлка",   photo: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=120&h=120&fit=crop&auto=format" },
+      { word: "Ёжик",   photo: "https://images.unsplash.com/photo-1608170825938-a8ea0305f7b5?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(160 55% 40%)",
+    bg: "linear-gradient(135deg, hsl(160 55% 40%), hsl(150 55% 35%))",
+    shadow: "hsl(160 55% 28%)",
+  },
+  108: {
+    letter: "Ж",
+    emoji: "🐞",
+    words: [
+      { word: "Жираф",   photo: "https://images.unsplash.com/photo-1547970810-dc1eac37d174?w=120&h=120&fit=crop&auto=format" },
+      { word: "Жук",     photo: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&h=120&fit=crop&auto=format" },
+      { word: "Журавль", photo: "https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(50 90% 50%)",
+    bg: "linear-gradient(135deg, hsl(50 90% 50%), hsl(40 90% 45%))",
+    shadow: "hsl(50 90% 35%)",
+  },
+  109: {
+    letter: "З",
+    emoji: "🦓",
+    words: [
+      { word: "Зебра",  photo: "https://images.unsplash.com/photo-1501705388630-4e2fa65c91ce?w=120&h=120&fit=crop&auto=format" },
+      { word: "Заяц",   photo: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=120&h=120&fit=crop&auto=format" },
+      { word: "Змея",   photo: "https://images.unsplash.com/photo-1531386151447-fd76ad50012f?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(270 70% 60%)",
+    bg: "linear-gradient(135deg, hsl(270 70% 60%), hsl(260 70% 55%))",
+    shadow: "hsl(270 70% 45%)",
+  },
+  110: {
+    letter: "И",
+    emoji: "🦌",
+    words: [
+      { word: "Индюк",  photo: "https://images.unsplash.com/photo-1574068468678-f2f0cad8b7f4?w=120&h=120&fit=crop&auto=format" },
+      { word: "Ива",    photo: "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=120&h=120&fit=crop&auto=format" },
+      { word: "Игла",   photo: "https://images.unsplash.com/photo-1563203369-26f2e4a5ccf7?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(190 70% 48%)",
+    bg: "linear-gradient(135deg, hsl(190 70% 48%), hsl(180 70% 43%))",
+    shadow: "hsl(190 70% 34%)",
+  },
+  111: {
+    letter: "Й",
+    emoji: "🎯",
+    words: [
+      { word: "Йогурт", photo: "https://images.unsplash.com/photo-1571212515416-fca988083f6d?w=120&h=120&fit=crop&auto=format" },
+      { word: "Йод",    photo: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=120&h=120&fit=crop&auto=format" },
+      { word: "Йети",   photo: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(200 65% 50%)",
+    bg: "linear-gradient(135deg, hsl(200 65% 50%), hsl(190 65% 45%))",
+    shadow: "hsl(200 65% 36%)",
+  },
+  112: {
+    letter: "К",
+    emoji: "🐱",
+    words: [
+      { word: "Кот",    photo: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=120&h=120&fit=crop&auto=format" },
+      { word: "Корова", photo: "https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=120&h=120&fit=crop&auto=format" },
+      { word: "Кит",    photo: "https://images.unsplash.com/photo-1568430462989-44163eb1752f?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(330 80% 58%)",
+    bg: "linear-gradient(135deg, hsl(330 80% 58%), hsl(320 80% 53%))",
+    shadow: "hsl(330 80% 43%)",
+  },
+  113: {
+    letter: "Л",
+    emoji: "🦁",
+    words: [
+      { word: "Лев",    photo: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=120&h=120&fit=crop&auto=format" },
+      { word: "Лиса",   photo: "https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=120&h=120&fit=crop&auto=format" },
+      { word: "Лук",    photo: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(28 85% 52%)",
+    bg: "linear-gradient(135deg, hsl(28 85% 52%), hsl(18 85% 47%))",
+    shadow: "hsl(28 85% 37%)",
+  },
+  114: {
+    letter: "М",
+    emoji: "🐭",
+    words: [
+      { word: "Медведь", photo: "https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?w=120&h=120&fit=crop&auto=format" },
+      { word: "Мышь",    photo: "https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=120&h=120&fit=crop&auto=format" },
+      { word: "Морковь", photo: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(10 80% 55%)",
+    bg: "linear-gradient(135deg, hsl(10 80% 55%), hsl(0 80% 50%))",
+    shadow: "hsl(10 80% 40%)",
+  },
+  115: {
+    letter: "Н",
+    emoji: "🌙",
+    words: [
+      { word: "Носорог", photo: "https://images.unsplash.com/photo-1510022151265-1d5c3885e7b8?w=120&h=120&fit=crop&auto=format" },
+      { word: "Нож",     photo: "https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?w=120&h=120&fit=crop&auto=format" },
+      { word: "Ночь",    photo: "https://images.unsplash.com/photo-1532767153582-b1a0e5145009?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(240 60% 55%)",
+    bg: "linear-gradient(135deg, hsl(240 60% 55%), hsl(230 60% 50%))",
+    shadow: "hsl(240 60% 40%)",
+  },
+  116: {
+    letter: "О",
+    emoji: "🦊",
+    words: [
+      { word: "Обезьяна", photo: "https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=120&h=120&fit=crop&auto=format" },
+      { word: "Овца",     photo: "https://images.unsplash.com/photo-1484557985045-edf25e08da73?w=120&h=120&fit=crop&auto=format" },
+      { word: "Орёл",     photo: "https://images.unsplash.com/photo-1611689102192-1f6e0e52df0a?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(35 90% 52%)",
+    bg: "linear-gradient(135deg, hsl(35 90% 52%), hsl(25 90% 47%))",
+    shadow: "hsl(35 90% 37%)",
+  },
+  117: {
+    letter: "П",
+    emoji: "🐧",
+    words: [
+      { word: "Пингвин", photo: "https://images.unsplash.com/photo-1551986782-d0169b3f8fa7?w=120&h=120&fit=crop&auto=format" },
+      { word: "Попугай", photo: "https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=120&h=120&fit=crop&auto=format" },
+      { word: "Помидор", photo: "https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(350 80% 58%)",
+    bg: "linear-gradient(135deg, hsl(350 80% 58%), hsl(340 80% 53%))",
+    shadow: "hsl(350 80% 43%)",
+  },
+  118: {
+    letter: "Р",
+    emoji: "🌹",
+    words: [
+      { word: "Роза",    photo: "https://images.unsplash.com/photo-1496062031456-07b8f162a322?w=120&h=120&fit=crop&auto=format" },
+      { word: "Рыба",    photo: "https://images.unsplash.com/photo-1524704654690-b56c05c78a00?w=120&h=120&fit=crop&auto=format" },
+      { word: "Ракета",  photo: "https://images.unsplash.com/photo-1516849841032-87cbac4d88f7?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(0 80% 58%)",
+    bg: "linear-gradient(135deg, hsl(0 80% 58%), hsl(350 80% 53%))",
+    shadow: "hsl(0 80% 43%)",
+  },
+  119: {
+    letter: "С",
+    emoji: "🐘",
+    words: [
+      { word: "Слон",   photo: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=120&h=120&fit=crop&auto=format" },
+      { word: "Собака", photo: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=120&h=120&fit=crop&auto=format" },
+      { word: "Сыр",    photo: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(200 60% 50%)",
+    bg: "linear-gradient(135deg, hsl(200 60% 50%), hsl(190 60% 45%))",
+    shadow: "hsl(200 60% 36%)",
+  },
+  120: {
+    letter: "Т",
+    emoji: "🐯",
+    words: [
+      { word: "Тигр",    photo: "https://images.unsplash.com/photo-1561731216-c3a4d99437d5?w=120&h=120&fit=crop&auto=format" },
+      { word: "Торт",    photo: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=120&h=120&fit=crop&auto=format" },
+      { word: "Тюлень",  photo: "https://images.unsplash.com/photo-1558618047-f4e90fef7d6a?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(20 85% 55%)",
+    bg: "linear-gradient(135deg, hsl(20 85% 55%), hsl(10 85% 50%))",
+    shadow: "hsl(20 85% 40%)",
+  },
+  121: {
+    letter: "У",
+    emoji: "🦆",
+    words: [
+      { word: "Утка",   photo: "https://images.unsplash.com/photo-1548550231-a08da8c88f42?w=120&h=120&fit=crop&auto=format" },
+      { word: "Улитка", photo: "https://images.unsplash.com/photo-1535591273668-578e31182c4f?w=120&h=120&fit=crop&auto=format" },
+      { word: "Уж",     photo: "https://images.unsplash.com/photo-1531386151447-fd76ad50012f?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(180 60% 44%)",
+    bg: "linear-gradient(135deg, hsl(180 60% 44%), hsl(170 60% 39%))",
+    shadow: "hsl(180 60% 31%)",
+  },
+  122: {
+    letter: "Ф",
+    emoji: "🎩",
+    words: [
+      { word: "Фламинго", photo: "https://images.unsplash.com/photo-1572431447238-425af66a273b?w=120&h=120&fit=crop&auto=format" },
+      { word: "Фрукты",   photo: "https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=120&h=120&fit=crop&auto=format" },
+      { word: "Фонарь",   photo: "https://images.unsplash.com/photo-1511971476924-f7a3a3e27bb3?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(300 65% 55%)",
+    bg: "linear-gradient(135deg, hsl(300 65% 55%), hsl(290 65% 50%))",
+    shadow: "hsl(300 65% 40%)",
+  },
+  123: {
+    letter: "Х",
+    emoji: "🦔",
+    words: [
+      { word: "Хомяк",  photo: "https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=120&h=120&fit=crop&auto=format" },
+      { word: "Хлеб",   photo: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=120&h=120&fit=crop&auto=format" },
+      { word: "Хвост",  photo: "https://images.unsplash.com/photo-1574144611937-0df059b5ef3e?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(15 75% 52%)",
+    bg: "linear-gradient(135deg, hsl(15 75% 52%), hsl(5 75% 47%))",
+    shadow: "hsl(15 75% 37%)",
+  },
+  124: {
+    letter: "Ц",
+    emoji: "🌸",
+    words: [
+      { word: "Цветок",  photo: "https://images.unsplash.com/photo-1490750967868-88df5691cc4c?w=120&h=120&fit=crop&auto=format" },
+      { word: "Цапля",   photo: "https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?w=120&h=120&fit=crop&auto=format" },
+      { word: "Цирк",    photo: "https://images.unsplash.com/photo-1533229716649-8da0b2a06d01?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(315 70% 57%)",
+    bg: "linear-gradient(135deg, hsl(315 70% 57%), hsl(305 70% 52%))",
+    shadow: "hsl(315 70% 42%)",
+  },
+  125: {
+    letter: "Ч",
+    emoji: "☕",
+    words: [
+      { word: "Черепаха", photo: "https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?w=120&h=120&fit=crop&auto=format" },
+      { word: "Чайник",   photo: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=120&h=120&fit=crop&auto=format" },
+      { word: "Чайка",    photo: "https://images.unsplash.com/photo-1570000440015-3fde4e50b5aa?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(30 80% 50%)",
+    bg: "linear-gradient(135deg, hsl(30 80% 50%), hsl(20 80% 45%))",
+    shadow: "hsl(30 80% 36%)",
+  },
+  126: {
+    letter: "Ш",
+    emoji: "🎱",
+    words: [
+      { word: "Шар",     photo: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=120&h=120&fit=crop&auto=format" },
+      { word: "Шмель",   photo: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&h=120&fit=crop&auto=format" },
+      { word: "Шоколад", photo: "https://images.unsplash.com/photo-1511381939415-e44015466834?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(280 65% 55%)",
+    bg: "linear-gradient(135deg, hsl(280 65% 55%), hsl(270 65% 50%))",
+    shadow: "hsl(280 65% 40%)",
+  },
+  127: {
+    letter: "Щ",
+    emoji: "🛡️",
+    words: [
+      { word: "Щенок",  photo: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=120&h=120&fit=crop&auto=format" },
+      { word: "Щука",   photo: "https://images.unsplash.com/photo-1524704654690-b56c05c78a00?w=120&h=120&fit=crop&auto=format" },
+      { word: "Щётка",  photo: "https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(90 55% 45%)",
+    bg: "linear-gradient(135deg, hsl(90 55% 45%), hsl(80 55% 40%))",
+    shadow: "hsl(90 55% 32%)",
+  },
+  128: {
+    letter: "Ъ",
+    emoji: "🔑",
+    words: [
+      { word: "Объект",  photo: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=120&h=120&fit=crop&auto=format" },
+      { word: "Объём",   photo: "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=120&h=120&fit=crop&auto=format" },
+      { word: "Съезд",   photo: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(210 50% 50%)",
+    bg: "linear-gradient(135deg, hsl(210 50% 50%), hsl(200 50% 45%))",
+    shadow: "hsl(210 50% 36%)",
+  },
+  129: {
+    letter: "Ы",
+    emoji: "🧀",
+    words: [
+      { word: "Рыба",   photo: "https://images.unsplash.com/photo-1524704654690-b56c05c78a00?w=120&h=120&fit=crop&auto=format" },
+      { word: "Мыло",   photo: "https://images.unsplash.com/photo-1584305574647-0cc949a2bb9f?w=120&h=120&fit=crop&auto=format" },
+      { word: "Дым",    photo: "https://images.unsplash.com/photo-1495573258723-2c7be7a646ce?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(55 80% 50%)",
+    bg: "linear-gradient(135deg, hsl(55 80% 50%), hsl(45 80% 45%))",
+    shadow: "hsl(55 80% 36%)",
+  },
+  130: {
+    letter: "Ь",
+    emoji: "🍂",
+    words: [
+      { word: "Соль",    photo: "https://images.unsplash.com/photo-1626878299-df25f8e0e8a3?w=120&h=120&fit=crop&auto=format" },
+      { word: "Мышь",    photo: "https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=120&h=120&fit=crop&auto=format" },
+      { word: "Огонь",   photo: "https://images.unsplash.com/photo-1540496905036-5937c10647cc?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(25 70% 50%)",
+    bg: "linear-gradient(135deg, hsl(25 70% 50%), hsl(15 70% 45%))",
+    shadow: "hsl(25 70% 36%)",
+  },
+  131: {
+    letter: "Э",
+    emoji: "⚡",
+    words: [
+      { word: "Экран",    photo: "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=120&h=120&fit=crop&auto=format" },
+      { word: "Экскаватор", photo: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=120&h=120&fit=crop&auto=format" },
+      { word: "Этаж",     photo: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(195 80% 48%)",
+    bg: "linear-gradient(135deg, hsl(195 80% 48%), hsl(185 80% 43%))",
+    shadow: "hsl(195 80% 34%)",
+  },
+  132: {
+    letter: "Ю",
+    emoji: "🌍",
+    words: [
+      { word: "Юла",    photo: "https://images.unsplash.com/photo-1558618047-f4e90fef7d6a?w=120&h=120&fit=crop&auto=format" },
+      { word: "Юноша",  photo: "https://images.unsplash.com/photo-1552058544-f2b08422138a?w=120&h=120&fit=crop&auto=format" },
+      { word: "Юг",     photo: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(210 80% 55%)",
+    bg: "linear-gradient(135deg, hsl(210 80% 55%), hsl(200 80% 50%))",
+    shadow: "hsl(210 80% 40%)",
+  },
+  133: {
+    letter: "Я",
+    emoji: "🍓",
+    words: [
+      { word: "Яблоко",  photo: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=120&h=120&fit=crop&auto=format" },
+      { word: "Ягода",   photo: "https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=120&h=120&fit=crop&auto=format" },
+      { word: "Якорь",   photo: "https://images.unsplash.com/photo-1548438294-1ad5d5f4f063?w=120&h=120&fit=crop&auto=format" },
+    ],
+    color: "hsl(345 85% 58%)",
+    bg: "linear-gradient(135deg, hsl(345 85% 58%), hsl(335 85% 53%))",
+    shadow: "hsl(345 85% 43%)",
+  },
 };
 
-const DEFAULT_LESSON = LETTER_DATA[4];
+const DEFAULT_LESSON = LETTER_DATA[101];
 
 type Phase = "learn" | "mic" | "success" | "wrong";
 
@@ -129,7 +489,7 @@ export default function LessonScreen({ lessonId, user, onComplete, onBack }: Pro
     onComplete({
       lessonId,
       stars,
-      badge: lessonId === 4 ? "first_letter" : undefined,
+      badge: lessonId === 101 ? "first_letter" : undefined,
     });
   };
 
