@@ -1,28 +1,97 @@
+import { useState } from "react";
+import AuthScreen from "./pages/AuthScreen";
+import MapScreen from "./pages/MapScreen";
+import LessonScreen from "./pages/LessonScreen";
+import ProfileScreen from "./pages/ProfileScreen";
+import RewardScreen from "./pages/RewardScreen";
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
+export type Screen = "auth" | "map" | "lesson" | "profile" | "reward";
 
-const queryClient = new QueryClient();
+export interface User {
+  name: string;
+  email: string;
+  stars: number;
+  level: number;
+  completedLessons: number[];
+  badges: string[];
+  streak: number;
+  isPremium: boolean;
+}
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+export interface LessonResult {
+  lessonId: number;
+  stars: number;
+  badge?: string;
+}
 
-export default App;
+const DEFAULT_USER: User = {
+  name: "Маша",
+  email: "masha@example.com",
+  stars: 42,
+  level: 1,
+  completedLessons: [1, 2, 3],
+  badges: ["first_letter", "triple_combo"],
+  streak: 5,
+  isPremium: false,
+};
+
+export default function App() {
+  const [screen, setScreen] = useState<Screen>("auth");
+  const [user, setUser] = useState<User>(DEFAULT_USER);
+  const [activeLessonId, setActiveLessonId] = useState<number>(4);
+  const [lastResult, setLastResult] = useState<LessonResult | null>(null);
+
+  const navigate = (s: Screen) => setScreen(s);
+
+  const startLesson = (id: number) => {
+    setActiveLessonId(id);
+    navigate("lesson");
+  };
+
+  const completeLesson = (result: LessonResult) => {
+    setUser((u) => ({
+      ...u,
+      stars: u.stars + result.stars,
+      completedLessons: u.completedLessons.includes(result.lessonId)
+        ? u.completedLessons
+        : [...u.completedLessons, result.lessonId],
+      badges:
+        result.badge && !u.badges.includes(result.badge)
+          ? [...u.badges, result.badge]
+          : u.badges,
+    }));
+    setLastResult(result);
+    navigate("reward");
+  };
+
+  return (
+    <div className="mobile-frame bg-background min-h-dvh font-nunito overflow-x-hidden">
+      {screen === "auth" && <AuthScreen onLogin={() => navigate("map")} />}
+      {screen === "map" && (
+        <MapScreen
+          user={user}
+          onStartLesson={startLesson}
+          onProfile={() => navigate("profile")}
+        />
+      )}
+      {screen === "lesson" && (
+        <LessonScreen
+          lessonId={activeLessonId}
+          user={user}
+          onComplete={completeLesson}
+          onBack={() => navigate("map")}
+        />
+      )}
+      {screen === "profile" && (
+        <ProfileScreen user={user} onBack={() => navigate("map")} />
+      )}
+      {screen === "reward" && lastResult && (
+        <RewardScreen
+          result={lastResult}
+          user={user}
+          onContinue={() => navigate("map")}
+        />
+      )}
+    </div>
+  );
+}

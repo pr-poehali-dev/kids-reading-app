@@ -1,0 +1,244 @@
+import { User } from "../App";
+import Icon from "@/components/ui/icon";
+
+interface Props {
+  user: User;
+  onStartLesson: (id: number) => void;
+  onProfile: () => void;
+}
+
+const LEVELS = [
+  {
+    id: 1,
+    title: "Буквы",
+    emoji: "🔤",
+    description: "Знакомимся с алфавитом",
+    color: "var(--game-purple)",
+    shadow: "hsl(258 80% 45%)",
+    gradient: "linear-gradient(135deg, hsl(258 90% 66%), hsl(258 80% 55%))",
+    lessons: [
+      { id: 1, title: "Буква А", emoji: "🍎", done: true },
+      { id: 2, title: "Буква Б", emoji: "🐝", done: true },
+      { id: 3, title: "Буква В", emoji: "🐺", done: true },
+      { id: 4, title: "Угадай букву", emoji: "🎯", done: false },
+      { id: 5, title: "Буква Г", emoji: "🦆", done: false },
+      { id: 6, title: "Буква Д", emoji: "🌳", done: false },
+      { id: 7, title: "Буква Е", emoji: "🦔", done: false },
+      { id: 8, title: "Буква Ж", emoji: "🐞", done: false },
+      { id: 9, title: "Все вместе!", emoji: "🌈", done: false },
+      { id: 10, title: "Финальный тест", emoji: "🏆", done: false },
+    ],
+  },
+  {
+    id: 2,
+    title: "Слоги",
+    emoji: "🎵",
+    description: "Учим слоги и звуки",
+    color: "var(--game-green)",
+    shadow: "hsl(142 60% 35%)",
+    gradient: "linear-gradient(135deg, hsl(142 72% 50%), hsl(142 60% 40%))",
+    locked: true,
+    lessons: [
+      { id: 11, title: "МА-МА", emoji: "👩" },
+      { id: 12, title: "ПА-ПА", emoji: "👨" },
+      { id: 13, title: "БА-БА", emoji: "👵" },
+      { id: 14, title: "МИ-МИ", emoji: "😻" },
+      { id: 15, title: "ТУ-ТУ", emoji: "🚂" },
+      { id: 16, title: "КУ-КА", emoji: "🐓" },
+      { id: 17, title: "ЗИ-ЗИ", emoji: "🦟" },
+      { id: 18, title: "НА-НА", emoji: "🎁" },
+      { id: 19, title: "Сложные слоги", emoji: "🧩" },
+      { id: 20, title: "Финальный тест", emoji: "🏆" },
+    ],
+  },
+  {
+    id: 3,
+    title: "Слова",
+    emoji: "📖",
+    description: "Читаем первые слова",
+    color: "var(--game-orange)",
+    shadow: "hsl(35 90% 45%)",
+    gradient: "linear-gradient(135deg, hsl(35 100% 60%), hsl(35 90% 50%))",
+    locked: true,
+    lessons: [
+      { id: 21, title: "МА-МА", emoji: "👩" },
+      { id: 22, title: "РЫ-БА", emoji: "🐟" },
+      { id: 23, title: "КО-ШКА", emoji: "🐱" },
+      { id: 24, title: "СО-БА-КА", emoji: "🐶" },
+      { id: 25, title: "ДОМ", emoji: "🏠" },
+      { id: 26, title: "ЛЕС", emoji: "🌲" },
+      { id: 27, title: "МЯЧ", emoji: "⚽" },
+      { id: 28, title: "ЕЖ", emoji: "🦔" },
+      { id: 29, title: "КНИГА", emoji: "📚" },
+      { id: 30, title: "Финальный тест", emoji: "🏆" },
+    ],
+  },
+];
+
+export default function MapScreen({ user, onStartLesson, onProfile }: Props) {
+  const progress = (user.completedLessons.length / 30) * 100;
+
+  return (
+    <div className="min-h-dvh flex flex-col pb-6">
+      {/* Header */}
+      <div className="px-5 pt-12 pb-4"
+        style={{ background: "linear-gradient(180deg, hsl(258 90% 66%) 0%, hsl(220 60% 97%) 100%)" }}>
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <p className="text-white/80 font-semibold text-sm">Привет,</p>
+            <h1 className="text-2xl font-black text-white">{user.name}! 👋</h1>
+          </div>
+          <button
+            onClick={onProfile}
+            className="w-12 h-12 rounded-2xl flex items-center justify-center bg-white/20 backdrop-blur-sm">
+            <span className="text-2xl">👤</span>
+          </button>
+        </div>
+
+        {/* Stats bar */}
+        <div className="flex gap-3">
+          <div className="flex-1 bg-white/20 backdrop-blur-sm rounded-2xl px-4 py-3 flex items-center gap-3">
+            <span className="text-2xl">⭐</span>
+            <div>
+              <p className="text-white/70 text-xs font-bold">ЗВЁЗДЫ</p>
+              <p className="text-white font-black text-lg leading-none">{user.stars}</p>
+            </div>
+          </div>
+          <div className="flex-1 bg-white/20 backdrop-blur-sm rounded-2xl px-4 py-3 flex items-center gap-3">
+            <span className="text-2xl">🔥</span>
+            <div>
+              <p className="text-white/70 text-xs font-bold">СЕРИЯ</p>
+              <p className="text-white font-black text-lg leading-none">{user.streak} дней</p>
+            </div>
+          </div>
+          <div className="flex-1 bg-white/20 backdrop-blur-sm rounded-2xl px-4 py-3 flex items-center gap-3">
+            <span className="text-2xl">🏅</span>
+            <div>
+              <p className="text-white/70 text-xs font-bold">БЕЙДЖИ</p>
+              <p className="text-white font-black text-lg leading-none">{user.badges.length}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Overall progress */}
+      <div className="px-5 py-4">
+        <div className="game-card p-4">
+          <div className="flex justify-between items-center mb-2">
+            <span className="font-bold text-sm text-foreground">Общий прогресс</span>
+            <span className="font-black text-sm" style={{ color: "hsl(var(--game-purple))" }}>
+              {user.completedLessons.length}/30 уроков
+            </span>
+          </div>
+          <div className="h-3 bg-muted rounded-full overflow-hidden">
+            <div
+              className="h-full rounded-full transition-all duration-700"
+              style={{
+                width: `${progress}%`,
+                background: "linear-gradient(90deg, hsl(var(--game-purple)), hsl(var(--game-pink)))",
+              }}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Levels */}
+      <div className="px-5 space-y-5">
+        {LEVELS.map((level, levelIdx) => {
+          const isLocked = level.locked && !user.isPremium;
+          const levelCompleted = level.lessons.filter(
+            (l) => user.completedLessons.includes(l.id)
+          ).length;
+
+          return (
+            <div key={level.id}>
+              {/* Level header */}
+              <div className="flex items-center gap-3 mb-3">
+                <div
+                  className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shadow-md"
+                  style={{ background: level.gradient }}>
+                  {level.emoji}
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <h2 className="font-black text-lg text-foreground">
+                      Уровень {level.id}: {level.title}
+                    </h2>
+                    {isLocked && (
+                      <span className="text-xs px-2 py-0.5 rounded-full font-bold text-white"
+                        style={{ background: "hsl(var(--game-orange))" }}>
+                        PRO
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-muted-foreground text-sm font-semibold">
+                    {levelCompleted}/{level.lessons.length} выполнено
+                  </p>
+                </div>
+              </div>
+
+              {/* Lessons grid */}
+              {isLocked ? (
+                <div className="game-card p-5 text-center">
+                  <span className="text-4xl mb-3 block">🔒</span>
+                  <h3 className="font-black text-base text-foreground mb-1">
+                    Уровень заблокирован
+                  </h3>
+                  <p className="text-muted-foreground text-sm font-semibold mb-4">
+                    Открой подписку, чтобы продолжить
+                  </p>
+                  <button
+                    className="btn-bounce w-full py-3 rounded-2xl font-black text-sm text-white"
+                    style={{
+                      background: level.gradient,
+                      boxShadow: `0 4px 0 ${level.shadow}`,
+                    }}>
+                    Открыть за 299 ₽/мес 🚀
+                  </button>
+                </div>
+              ) : (
+                <div className="grid grid-cols-5 gap-2">
+                  {level.lessons.map((lesson, i) => {
+                    const isDone = user.completedLessons.includes(lesson.id);
+                    const isNext = !isDone && (i === 0 || user.completedLessons.includes(level.lessons[i - 1]?.id));
+                    const isDisabled = !isDone && !isNext;
+
+                    return (
+                      <button
+                        key={lesson.id}
+                        onClick={() => !isDisabled && onStartLesson(lesson.id)}
+                        disabled={isDisabled}
+                        className="btn-bounce aspect-square rounded-2xl flex flex-col items-center justify-center text-xl relative transition-all"
+                        style={{
+                          background: isDone
+                            ? level.gradient
+                            : isNext
+                            ? "white"
+                            : "hsl(var(--muted))",
+                          boxShadow: isDone
+                            ? `0 4px 0 ${level.shadow}`
+                            : isNext
+                            ? `0 4px 0 hsl(var(--border)), 0 0 0 2px hsl(${level.color})`
+                            : "0 2px 0 hsl(var(--border))",
+                          border: isNext ? `2px solid hsl(${level.color})` : "none",
+                          opacity: isDisabled ? 0.4 : 1,
+                        }}>
+                        <span className="text-lg leading-none">{lesson.emoji}</span>
+                        {isDone && (
+                          <span className="text-xs font-black text-white">✓</span>
+                        )}
+                        {isNext && (
+                          <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-yellow-400 pulse-ring" />
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
