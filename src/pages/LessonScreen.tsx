@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { User, LessonResult } from "../App";
 import Icon from "@/components/ui/icon";
 import { useSpeechRecognition } from "@/hooks/useSpeechRecognition";
+import { useTTS } from "@/hooks/useTTS";
 
 interface Props {
   lessonId: number;
@@ -67,6 +68,13 @@ export default function LessonScreen({ lessonId, user, onComplete, onBack }: Pro
   const [stars, setStars] = useState(3);
   const [confetti, setConfetti] = useState<{ id: number; x: number; color: string; char: string }[]>([]);
   const confettiId = useRef(0);
+  const { speak, stop, speaking } = useTTS();
+
+  // Auto-speak letter when lesson loads
+  useEffect(() => {
+    const t = setTimeout(() => speak(`Буква ${lesson.letter}`), 600);
+    return () => clearTimeout(t);
+  }, [lessonId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const spawnConfetti = () => {
     const chars = ["⭐", "✨", "🌟", "💫", "🎉"];
@@ -179,40 +187,62 @@ export default function LessonScreen({ lessonId, user, onComplete, onBack }: Pro
             Знакомимся с буквой
           </p>
 
-          {/* Giant floating letter */}
-          <div
-            className="w-44 h-44 rounded-[2.5rem] flex items-center justify-center mb-6 shadow-xl"
+          {/* Giant floating letter — tap to hear */}
+          <button
+            onClick={() => speak(`Буква ${lesson.letter}`)}
+            className="w-44 h-44 rounded-[2.5rem] flex flex-col items-center justify-center mb-6 shadow-xl relative transition-transform active:scale-95"
             style={{
               background: lesson.bg,
-              boxShadow: `0 12px 40px ${lesson.color}55`,
+              boxShadow: speaking === `Буква ${lesson.letter}`
+                ? `0 0 0 6px ${lesson.color}40, 0 16px 48px ${lesson.color}66`
+                : `0 12px 40px ${lesson.color}55`,
               animation: "floatY 3s ease-in-out infinite",
             }}>
-            <span className="font-black text-white leading-none" style={{ fontSize: "7.5rem", textShadow: "0 4px 16px rgba(0,0,0,0.25)" }}>
+            <span className="font-black text-white leading-none" style={{ fontSize: "7rem", textShadow: "0 4px 16px rgba(0,0,0,0.25)" }}>
               {lesson.letter}
             </span>
-          </div>
+            <span className="text-white/70 text-xs font-bold mt-1 flex items-center gap-1">
+              {speaking === `Буква ${lesson.letter}` ? "🔊 звучит..." : "🔊 нажми"}
+            </span>
+          </button>
 
           {/* Words */}
           <p className="text-xs font-black text-muted-foreground uppercase tracking-widest mb-3">
             Слова на «{lesson.letter}»
           </p>
           <div className="w-full space-y-2.5 mb-6">
-            {lesson.words.map((w, i) => (
-              <div
-                key={i}
-                className="game-card flex items-center gap-4 px-4 py-3.5"
-                style={{ animationDelay: `${i * 0.08}s` }}>
-                <span className="text-4xl">{w.emoji}</span>
-                <div className="flex-1">
-                  <div className="flex items-baseline gap-0.5">
-                    <span className="font-black text-xl" style={{ color: lesson.color }}>
-                      {w.word[0]}
-                    </span>
-                    <span className="font-bold text-lg text-foreground">{w.word.slice(1)}</span>
+            {lesson.words.map((w, i) => {
+              const isSpeaking = speaking === w.word;
+              return (
+                <button
+                  key={i}
+                  onClick={() => isSpeaking ? stop() : speak(w.word)}
+                  className="game-card w-full flex items-center gap-4 px-4 py-3.5 transition-all active:scale-98 text-left"
+                  style={{
+                    animationDelay: `${i * 0.08}s`,
+                    boxShadow: isSpeaking
+                      ? `0 0 0 3px ${lesson.color}60, 0 8px 0 rgba(0,0,0,0.08), 0 2px 20px rgba(0,0,0,0.06)`
+                      : undefined,
+                  }}>
+                  <span className="text-4xl">{w.emoji}</span>
+                  <div className="flex-1">
+                    <div className="flex items-baseline gap-0.5">
+                      <span className="font-black text-xl" style={{ color: lesson.color }}>
+                        {w.word[0]}
+                      </span>
+                      <span className="font-bold text-lg text-foreground">{w.word.slice(1)}</span>
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
+                  <div
+                    className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 transition-all"
+                    style={{
+                      background: isSpeaking ? lesson.bg : "hsl(var(--muted))",
+                    }}>
+                    <span className="text-lg">{isSpeaking ? "🔊" : "▶️"}</span>
+                  </div>
+                </button>
+              );
+            })}
           </div>
 
           {/* CTA button */}
