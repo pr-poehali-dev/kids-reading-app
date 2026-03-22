@@ -96,11 +96,19 @@ export default function LessonScreen({ lessonId, user, onComplete, onBack }: Pro
         if (correct) {
           spawnConfetti();
           setPhase("success");
+          const phrases = [
+            `Молодец! Ты правильно сказал букву ${lesson.letter}!`,
+            `Отлично! Буква ${lesson.letter} — ты справился!`,
+            `Супер! Так держать, умница!`,
+          ];
+          const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+          setTimeout(() => speak(phrase), 400);
         } else {
           const newAttempts = attempts + 1;
           setAttempts(newAttempts);
           if (newAttempts >= 2) setStars((s) => Math.max(1, s - 1));
           setPhase("wrong");
+          setTimeout(() => speak(`Не расстраивайся! Попробуй ещё раз. Буква ${lesson.letter}.`), 300);
         }
       },
     }
