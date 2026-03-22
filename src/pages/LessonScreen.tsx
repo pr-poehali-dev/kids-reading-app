@@ -14,7 +14,7 @@ interface Props {
 const LETTER_DATA: Record<number, {
   letter: string;
   emoji: string;
-  words: { word: string; emoji: string }[];
+  words: { word: string; photo: string }[];
   color: string;
   bg: string;
   shadow: string;
@@ -23,9 +23,9 @@ const LETTER_DATA: Record<number, {
     letter: "А",
     emoji: "🍎",
     words: [
-      { word: "Арбуз", emoji: "🍉" },
-      { word: "Апельсин", emoji: "🍊" },
-      { word: "Аист", emoji: "🦢" },
+      { word: "Арбуз",    photo: "https://images.unsplash.com/photo-1582281298055-e25b84a2559b?w=120&h=120&fit=crop&auto=format" },
+      { word: "Апельсин", photo: "https://images.unsplash.com/photo-1547514701-42782101795e?w=120&h=120&fit=crop&auto=format" },
+      { word: "Аист",     photo: "https://images.unsplash.com/photo-1618944847828-82e943c3bdb7?w=120&h=120&fit=crop&auto=format" },
     ],
     color: "hsl(0 85% 60%)",
     bg: "linear-gradient(135deg, hsl(0 85% 60%), hsl(350 85% 55%))",
@@ -35,9 +35,9 @@ const LETTER_DATA: Record<number, {
     letter: "Г",
     emoji: "🦆",
     words: [
-      { word: "Гусь", emoji: "🦆" },
-      { word: "Груша", emoji: "🍐" },
-      { word: "Гриб", emoji: "🍄" },
+      { word: "Гусь",  photo: "https://images.unsplash.com/photo-1548550231-a08da8c88f42?w=120&h=120&fit=crop&auto=format" },
+      { word: "Груша", photo: "https://images.unsplash.com/photo-1514756331096-242fdeb70d4a?w=120&h=120&fit=crop&auto=format" },
+      { word: "Гриб",  photo: "https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=120&h=120&fit=crop&auto=format" },
     ],
     color: "hsl(120 60% 45%)",
     bg: "linear-gradient(135deg, hsl(120 60% 45%), hsl(100 60% 40%))",
@@ -47,9 +47,9 @@ const LETTER_DATA: Record<number, {
     letter: "Д",
     emoji: "🌳",
     words: [
-      { word: "Дом", emoji: "🏠" },
-      { word: "Дыня", emoji: "🍈" },
-      { word: "Дельфин", emoji: "🐬" },
+      { word: "Дом",     photo: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=120&h=120&fit=crop&auto=format" },
+      { word: "Дыня",    photo: "https://images.unsplash.com/photo-1571575309232-4f031a5e1b6b?w=120&h=120&fit=crop&auto=format" },
+      { word: "Дельфин", photo: "https://images.unsplash.com/photo-1607153333879-c174d265f1d2?w=120&h=120&fit=crop&auto=format" },
     ],
     color: "hsl(25 90% 55%)",
     bg: "linear-gradient(135deg, hsl(25 90% 55%), hsl(15 90% 50%))",
@@ -68,11 +68,11 @@ export default function LessonScreen({ lessonId, user, onComplete, onBack }: Pro
   const [stars, setStars] = useState(3);
   const [confetti, setConfetti] = useState<{ id: number; x: number; color: string; char: string }[]>([]);
   const confettiId = useRef(0);
-  const { speak, stop, speaking } = useTTS();
+  const { speak, speakLetter, stop, speaking } = useTTS();
 
   // Auto-speak letter when lesson loads
   useEffect(() => {
-    const t = setTimeout(() => speak(`Буква ${lesson.letter}`), 600);
+    const t = setTimeout(() => speakLetter(lesson.letter), 600);
     return () => clearTimeout(t);
   }, [lessonId]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -197,11 +197,11 @@ export default function LessonScreen({ lessonId, user, onComplete, onBack }: Pro
 
           {/* Giant floating letter — tap to hear */}
           <button
-            onClick={() => speak(`Буква ${lesson.letter}`)}
+            onClick={() => speakLetter(lesson.letter)}
             className="w-44 h-44 rounded-[2.5rem] flex flex-col items-center justify-center mb-6 shadow-xl relative transition-transform active:scale-95"
             style={{
               background: lesson.bg,
-              boxShadow: speaking === `Буква ${lesson.letter}`
+              boxShadow: speaking === `letter_${lesson.letter}`
                 ? `0 0 0 6px ${lesson.color}40, 0 16px 48px ${lesson.color}66`
                 : `0 12px 40px ${lesson.color}55`,
               animation: "floatY 3s ease-in-out infinite",
@@ -210,7 +210,7 @@ export default function LessonScreen({ lessonId, user, onComplete, onBack }: Pro
               {lesson.letter}
             </span>
             <span className="text-white/70 text-xs font-bold mt-1 flex items-center gap-1">
-              {speaking === `Буква ${lesson.letter}` ? "🔊 звучит..." : "🔊 нажми"}
+              {speaking === `letter_${lesson.letter}` ? "🔊 звучит..." : "🔊 нажми"}
             </span>
           </button>
 
@@ -225,27 +225,37 @@ export default function LessonScreen({ lessonId, user, onComplete, onBack }: Pro
                 <button
                   key={i}
                   onClick={() => isSpeaking ? stop() : speak(w.word)}
-                  className="game-card w-full flex items-center gap-4 px-4 py-3.5 transition-all active:scale-98 text-left"
+                  className="game-card w-full flex items-center gap-3 px-3 py-3 transition-all active:scale-[0.98] text-left overflow-hidden"
                   style={{
-                    animationDelay: `${i * 0.08}s`,
                     boxShadow: isSpeaking
-                      ? `0 0 0 3px ${lesson.color}60, 0 8px 0 rgba(0,0,0,0.08), 0 2px 20px rgba(0,0,0,0.06)`
+                      ? `0 0 0 3px ${lesson.color}70, 0 8px 0 rgba(0,0,0,0.08), 0 2px 20px rgba(0,0,0,0.06)`
                       : undefined,
                   }}>
-                  <span className="text-4xl">{w.emoji}</span>
+                  {/* Photo */}
+                  <div className="w-16 h-16 rounded-2xl overflow-hidden flex-shrink-0 bg-muted">
+                    <img
+                      src={w.photo}
+                      alt={w.word}
+                      className="w-full h-full object-cover transition-transform duration-300"
+                      style={{ transform: isSpeaking ? "scale(1.08)" : "scale(1)" }}
+                    />
+                  </div>
+                  {/* Word */}
                   <div className="flex-1">
                     <div className="flex items-baseline gap-0.5">
-                      <span className="font-black text-xl" style={{ color: lesson.color }}>
+                      <span className="font-black text-2xl" style={{ color: lesson.color }}>
                         {w.word[0]}
                       </span>
-                      <span className="font-bold text-lg text-foreground">{w.word.slice(1)}</span>
+                      <span className="font-bold text-xl text-foreground">{w.word.slice(1)}</span>
                     </div>
+                    <p className="text-xs text-muted-foreground font-semibold mt-0.5">
+                      {isSpeaking ? "🔊 звучит..." : "нажми, чтобы услышать"}
+                    </p>
                   </div>
+                  {/* Play button */}
                   <div
-                    className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 transition-all"
-                    style={{
-                      background: isSpeaking ? lesson.bg : "hsl(var(--muted))",
-                    }}>
+                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all"
+                    style={{ background: isSpeaking ? lesson.bg : "hsl(var(--muted))" }}>
                     <span className="text-lg">{isSpeaking ? "🔊" : "▶️"}</span>
                   </div>
                 </button>
