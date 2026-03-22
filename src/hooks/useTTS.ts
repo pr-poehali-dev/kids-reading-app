@@ -55,8 +55,8 @@ export function useTTS() {
 
     // Первый utterance: слово "Буква"
     const u1 = makeUtter("Буква", 0.8, 1.5);
-    // Второй utterance: сама буква — очень медленно, звонко, громко
-    const u2 = makeUtter(letter, 0.35, 2.0, 1);
+    // Второй utterance: сама буква — звонко, громко
+    const u2 = makeUtter(letter, 0.75, 2.0, 1);
 
     const key = `letter_${letter}`;
 
