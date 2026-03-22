@@ -86,8 +86,8 @@ export default function AuthScreen({ onLogin }: Props) {
             onClick={() => setStep("register")}
             className="btn-bounce w-full py-4 rounded-2xl font-black text-lg text-white shadow-lg"
             style={{
-              background: "linear-gradient(135deg, hsl(var(--game-purple)), hsl(var(--game-pink)))",
-              boxShadow: "0 6px 0 hsl(258 80% 45%)",
+              background: "linear-gradient(135deg, #ff8c00, #ff6200)",
+              boxShadow: "0 6px 0 #c44b00",
             }}>
             Начать обучение 🚀
           </button>
