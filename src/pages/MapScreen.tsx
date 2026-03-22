@@ -224,22 +224,39 @@ export default function MapScreen({ user, onStartLesson, onProfile }: Props) {
                 <div className="grid grid-cols-5 gap-2">
                   {level.lessons.map((lesson) => {
                     const isDone = user.completedLessons.includes(lesson.id);
+                    const letterMatch = lesson.title.match(/Буква\s+(.+)/);
+                    const letterLabel = letterMatch ? letterMatch[1] : null;
 
                     return (
                       <button
                         key={lesson.id}
                         onClick={() => onStartLesson(lesson.id)}
-                        className="btn-bounce aspect-square rounded-2xl flex flex-col items-center justify-center text-xl relative transition-all"
+                        className="btn-bounce rounded-2xl flex flex-col items-center justify-center relative transition-all py-2 gap-0.5"
                         style={{
                           background: isDone ? level.gradient : "white",
                           boxShadow: isDone
                             ? `0 4px 0 ${level.shadow}`
                             : `0 4px 0 hsl(var(--border)), 0 0 0 2px hsl(${level.color})`,
                           border: isDone ? "none" : `2px solid hsl(${level.color})`,
+                          minHeight: "60px",
                         }}>
                         <span className="text-lg leading-none">{lesson.emoji}</span>
+                        {letterLabel ? (
+                          <span
+                            className="font-black leading-none"
+                            style={{
+                              fontSize: "1rem",
+                              color: isDone ? "white" : `hsl(${level.color})`,
+                            }}>
+                            {letterLabel}
+                          </span>
+                        ) : (
+                          <span className="text-xs font-bold leading-none" style={{ color: isDone ? "white" : "hsl(var(--muted-foreground))" }}>
+                            {isDone ? "✓" : lesson.emoji}
+                          </span>
+                        )}
                         {isDone && (
-                          <span className="text-xs font-black text-white">✓</span>
+                          <span className="absolute top-1 right-1.5 text-white text-xs font-black leading-none">✓</span>
                         )}
                       </button>
                     );
